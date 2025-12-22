@@ -1,0 +1,40 @@
+{
+  "module_id": "example",
+  "name": "Example Module",
+  "name_es": "Módulo de Ejemplo",
+  "version": "0.1.0",
+  "description": "Functional example module demonstrating how to create modules for ERPlora Hub. Includes interactive examples with Ionic 8, Alpine.js and HTMX. Use it as a template for your own modules.",
+  "description_es": "Módulo de ejemplo funcional que demuestra cómo crear módulos para ERPlora Hub. Incluye ejemplos interactivos con Ionic 8, Alpine.js y HTMX. Úsalo como plantilla para tus propios módulos.",
+  "author": "Ioan Beilic",
+  "author_email": "support@erplora.com",
+  "license": "MIT",
+  "category": "utilities",
+  "icon": "cube-outline",
+  "homepage": "https://github.com/erplora/hub",
+
+  "dependencies": {
+    "python": [],
+    "modules": []
+  },
+
+  "compatibility": {
+    "min_erplora_version": "1.0.0",
+    "max_erplora_version": "99.0.0"
+  },
+
+  "features": {
+    "interactive_examples": true,
+    "alpine_js": true,
+    "htmx": true,
+    "ionic_components": true,
+    "responsive_design": true
+  },
+
+  "menu": {
+    "label": "Example",
+    "label_es": "Ejemplo",
+    "icon": "cube-outline",
+    "url": "/modules/example/",
+    "order": 999
+  }
+}

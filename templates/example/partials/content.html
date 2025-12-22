@@ -1,0 +1,173 @@
+{% load static %}
+{% load i18n %}
+
+{% if request.htmx %}
+<!-- Tab bar update via OOB swap (only on HTMX navigation) -->
+<div id="dashboard-tabbar" hx-swap-oob="innerHTML">
+{% include "example/partials/tabbar.html" %}
+</div>
+{% endif %}
+
+<div class="ion-padding">
+    <!-- Hero Card -->
+    <ion-card color="primary">
+        <ion-card-header>
+            <ion-card-title>
+                <ion-icon name="rocket-outline"></ion-icon>
+                {% trans "Welcome to Example Module!" %}
+            </ion-card-title>
+            <ion-card-subtitle>
+                {% trans "Your starting point for creating modules in ERPlora Hub" %}
+            </ion-card-subtitle>
+        </ion-card-header>
+        <ion-card-content>
+            <p>
+                {% trans "This module demonstrates how to create interactive interfaces using" %}
+                <strong>Ionic 8</strong>, <strong>Alpine.js</strong> {% trans "and" %} <strong>HTMX</strong>.
+            </p>
+        </ion-card-content>
+    </ion-card>
+
+    <!-- Interactive Counter with Alpine.js -->
+    <ion-card x-data="{ count: 0, message: '' }">
+        <ion-card-header>
+            <ion-card-title>
+                <ion-icon name="analytics-outline"></ion-icon>
+                {% trans "Alpine.js Example" %}
+            </ion-card-title>
+            <ion-card-subtitle>{% trans "Interactive counter" %}</ion-card-subtitle>
+        </ion-card-header>
+        <ion-card-content>
+            <div class="ion-text-center ion-padding">
+                <h1 x-text="count" style="font-size: 3rem; font-weight: bold;"></h1>
+                <p x-show="count === 0" x-cloak>{% trans "Click the buttons to start" %}</p>
+                <p x-show="count > 0 && count < 5" x-cloak>{% trans "Keep going!" %}</p>
+                <p x-show="count >= 5 && count < 10" x-cloak>{% trans "Very good!" %}</p>
+                <p x-show="count >= 10" x-cloak>{% trans "You're an expert!" %}</p>
+            </div>
+
+            <div class="ion-padding">
+                <ion-button expand="block" color="success" @click="count++">
+                    <ion-icon slot="start" name="add-circle-outline"></ion-icon>
+                    {% trans "Increment" %} (+1)
+                </ion-button>
+
+                <ion-button expand="block" color="warning" @click="count = Math.max(0, count - 1)" class="ion-margin-top">
+                    <ion-icon slot="start" name="remove-circle-outline"></ion-icon>
+                    {% trans "Decrement" %} (-1)
+                </ion-button>
+
+                <ion-button expand="block" color="danger" @click="count = 0" class="ion-margin-top">
+                    <ion-icon slot="start" name="refresh-circle-outline"></ion-icon>
+                    {% trans "Reset" %}
+                </ion-button>
+            </div>
+        </ion-card-content>
+    </ion-card>
+
+    <!-- Interactive Form -->
+    <ion-card x-data="{ name: '', email: '', submitted: false }">
+        <ion-card-header>
+            <ion-card-title>
+                <ion-icon name="mail-outline"></ion-icon>
+                {% trans "Form Example" %}
+            </ion-card-title>
+            <ion-card-subtitle>{% trans "Reactive form with validation" %}</ion-card-subtitle>
+        </ion-card-header>
+        <ion-card-content>
+            <div x-show="!submitted">
+                <ion-list>
+                    <ion-item>
+                        <ion-input
+                            x-model="name"
+                            type="text"
+                            label="{% trans 'Name' %}"
+                            label-placement="floating"
+                            placeholder="{% trans 'Enter your name' %}">
+                        </ion-input>
+                    </ion-item>
+
+                    <ion-item>
+                        <ion-input
+                            x-model="email"
+                            type="email"
+                            label="{% trans 'Email' %}"
+                            label-placement="floating"
+                            placeholder="you@email.com">
+                        </ion-input>
+                    </ion-item>
+                </ion-list>
+
+                <ion-button expand="block" class="ion-margin-top" @click="submitted = true" :disabled="!name || !email">
+                    <ion-icon slot="start" name="paper-plane-outline"></ion-icon>
+                    {% trans "Submit" %}
+                </ion-button>
+            </div>
+
+            <div x-show="submitted" x-cloak>
+                <ion-text color="success">
+                    <h3>
+                        <ion-icon name="checkmark-circle"></ion-icon>
+                        {% trans "Data received!" %}
+                    </h3>
+                </ion-text>
+                <p><strong>{% trans "Name" %}:</strong> <span x-text="name"></span></p>
+                <p><strong>{% trans "Email" %}:</strong> <span x-text="email"></span></p>
+                <ion-button color="medium" size="large" @click="submitted = false; name = ''; email = ''">
+                    {% trans "Submit another" %}
+                </ion-button>
+            </div>
+        </ion-card-content>
+    </ion-card>
+
+    <!-- Module Features List -->
+    <ion-card>
+        <ion-card-header>
+            <ion-card-title>
+                <ion-icon name="list-outline"></ion-icon>
+                {% trans "Module Features" %}
+            </ion-card-title>
+        </ion-card-header>
+        <ion-card-content>
+            <ion-list>
+                <ion-item>
+                    <ion-icon name="checkmark-circle" slot="start" color="success"></ion-icon>
+                    <ion-label>
+                        <h3>{% trans "Complete structure" %}</h3>
+                        <p>{% trans "All necessary files included" %}</p>
+                    </ion-label>
+                </ion-item>
+
+                <ion-item>
+                    <ion-icon name="checkmark-circle" slot="start" color="success"></ion-icon>
+                    <ion-label>
+                        <h3>{% trans "Interactive examples" %}</h3>
+                        <p>{% trans "Counters, forms, tabs and more" %}</p>
+                    </ion-label>
+                </ion-item>
+
+                <ion-item>
+                    <ion-icon name="checkmark-circle" slot="start" color="success"></ion-icon>
+                    <ion-label>
+                        <h3>{% trans "Detailed documentation" %}</h3>
+                        <p>{% trans "Complete README with guides and examples" %}</p>
+                    </ion-label>
+                </ion-item>
+
+                <ion-item>
+                    <ion-icon name="checkmark-circle" slot="start" color="success"></ion-icon>
+                    <ion-label>
+                        <h3>{% trans "Tests included" %}</h3>
+                        <p>{% trans "Test examples with pytest" %}</p>
+                    </ion-label>
+                </ion-item>
+            </ion-list>
+        </ion-card-content>
+    </ion-card>
+</div>
+
+<style>
+    [x-cloak] {
+        display: none !important;
+    }
+</style>

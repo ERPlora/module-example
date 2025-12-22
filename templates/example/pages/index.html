@@ -1,0 +1,13 @@
+{% extends "dashboard/layout.html" %}
+{% load static %}
+{% load i18n %}
+
+{% block page_title %}Example Module{% endblock %}
+
+{% block section_tabbar %}
+{% include "example/partials/tabbar.html" %}
+{% endblock %}
+
+{% block dashboard_content %}
+{% include "example/partials/content.html" %}
+{% endblock %}
