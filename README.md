@@ -1,14 +1,14 @@
-# Example Plugin - Plugin de Ejemplo para CPOS Hub
+# Example Module - Módulo de Ejemplo para ERPlora Hub
 
 **Versión:** 0.1.0
-**Autor:** CPOS Team
-**Descripción:** Plugin de ejemplo funcional que muestra cómo crear plugins para CPOS Hub.
+**Autor:** ERPlora Team
+**Descripción:** Módulo de ejemplo funcional que muestra cómo crear módulos para ERPlora Hub.
 
 ---
 
-## 📋 ¿Qué es este plugin?
+## 📋 ¿Qué es este módulo?
 
-Este plugin es un **ejemplo completo y funcional** que demuestra cómo crear plugins para CPOS Hub. Incluye:
+Este módulo es un **ejemplo completo y funcional** que demuestra cómo crear módulos para ERPlora Hub. Incluye:
 
 ✅ Estructura completa de archivos
 ✅ Página "Hello World" con Ionic components
@@ -17,52 +17,85 @@ Este plugin es un **ejemplo completo y funcional** que demuestra cómo crear plu
 ✅ URLs configuradas
 ✅ Tests de ejemplo
 ✅ Documentación detallada
+✅ Icono SVG personalizado
 
 ---
 
 ## 🚀 Instalación
 
-Este plugin está incluido por defecto en el Hub para propósitos educativos.
+Este módulo está incluido por defecto en el Hub para propósitos educativos (desactivado con prefijo `_`).
 
-### Activar el plugin:
+### Activar el módulo:
 
 1. Ir al dashboard del Hub
-2. Navegar a "Plugins"
-3. Activar "Example Plugin"
-4. El plugin estará disponible en `/example/`
+2. Navegar a "Modules"
+3. Activar "Example Module"
+4. El módulo estará disponible en `/modules/example/`
 
 ---
 
-## 📁 Estructura del Plugin
+## 📁 Estructura del Módulo
 
 ```
 example/
-├── plugin.json              # Metadata del plugin (nombre, versión, deps)
+├── module.json              # Metadata del módulo (nombre, versión, deps)
 ├── __init__.py              # Package init
-├── apps.py                  # Configuración Django del plugin
+├── apps.py                  # Configuración Django del módulo
 ├── models.py                # Modelos de datos (ejemplo comentado)
-├── views.py                 # Vistas del plugin
-├── urls.py                  # URLs del plugin
+├── views.py                 # Vistas del módulo
+├── urls.py                  # URLs del módulo
 ├── templates/
 │   └── example/
 │       └── index.html       # Template con Ionic + Alpine.js
 ├── static/
+│   ├── icons/
+│   │   └── icon.svg         # Icono del módulo (SVG preferido)
 │   └── example/
-│       ├── css/            # CSS personalizado
-│       ├── js/             # JavaScript adicional
-│       └── img/            # Imágenes del plugin
+│       ├── css/             # CSS personalizado
+│       ├── js/              # JavaScript adicional
+│       └── img/             # Imágenes del módulo
 ├── migrations/
-│   └── __init__.py         # Migraciones de base de datos
+│   └── __init__.py          # Migraciones de base de datos
 ├── management/
-│   └── commands/           # Management commands personalizados
+│   └── commands/            # Management commands personalizados
 ├── tests/
 │   ├── __init__.py
-│   └── test_example.py     # Tests del plugin
-├── README.md               # Este archivo
-├── LICENSE                 # Licencia del plugin
-└── .gitignore             # Archivos a ignorar
-
+│   └── test_example.py      # Tests del módulo
+├── README.md                # Este archivo
+└── .gitignore               # Archivos a ignorar
 ```
+
+---
+
+## 🎨 Iconos del Módulo
+
+ERPlora soporta iconos SVG y PNG personalizados para módulos.
+
+### Prioridad de iconos:
+
+1. `static/icons/icon.svg` (preferido - inline, escalable)
+2. `static/icons/icon.png` (alternativa - base64)
+3. Campo `icon` en `module.json` (Ionic icon fallback)
+4. `cube-outline` (default)
+
+### Requisitos SVG:
+
+```svg
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none"
+     stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+  <!-- Paths aquí -->
+</svg>
+```
+
+- Usar `currentColor` para heredar color del CSS
+- Tamaño recomendado: 24x24 viewBox
+- Librerías gratuitas: [Lucide](https://lucide.dev), [Heroicons](https://heroicons.com), [Tabler](https://tabler-icons.io)
+
+### Requisitos PNG:
+
+- Dimensiones: 48x48 o 64x64 pixels
+- Fondo transparente
+- Tamaño archivo: < 10KB
 
 ---
 
@@ -72,7 +105,7 @@ example/
 
 - Python 3.11+
 - Django 5.1+
-- CPOS Hub instalado
+- ERPlora Hub instalado
 
 ### Comandos útiles
 
@@ -87,55 +120,39 @@ python manage.py makemigrations example
 python manage.py migrate example
 
 # Ejecutar tests
-pytest plugins/example/tests/
-
-# Validar estructura del plugin
-python manage.py validate_plugin example
-
-# Empaquetar plugin para distribución
-python manage.py package_plugin example
-
-# Firmar plugin (para marketplace)
-python manage.py sign_plugin example
+pytest modules/example/tests/
 ```
 
 ---
 
-## 📝 Crear un plugin desde cero
+## 📝 Crear un módulo desde cero
 
-Usa este plugin como base para crear tus propios plugins:
+Usa este módulo como base para crear tus propios módulos:
 
-### Opción 1: Copiar este plugin
+### Copiar este módulo
 
 ```bash
 # Copiar carpeta example
-cp -r plugins/example plugins/mi-plugin
+cp -r modules/_example modules/mi-modulo
 
 # Editar archivos:
-# 1. plugin.json - Cambiar plugin_id, name, author
+# 1. module.json - Cambiar module_id, name, author
 # 2. apps.py - Cambiar nombre de clase
-# 3. Renombrar carpetas templates/example → templates/mi-plugin
-# 4. Renombrar carpetas static/example → static/mi-plugin
-```
-
-### Opción 2: Usar comando create_plugin (futuro)
-
-```bash
-python manage.py create_plugin mi-plugin \
-  --name "Mi Plugin" \
-  --author "Tu Nombre" \
-  --description "Descripción del plugin"
+# 3. Renombrar carpetas templates/example → templates/mi-modulo
+# 4. Renombrar carpetas static/example → static/mi-modulo
+# 5. Añadir icono en static/icons/icon.svg
 ```
 
 ---
 
 ## 🎨 Componentes de UI
 
-Este plugin usa:
+Este módulo usa:
 
-- **Ionic 8**: Componentes UI profesionales
+- **Ionic 8**: Componentes UI profesionales (modo iOS)
 - **Alpine.js**: Reactividad ligera sin framework pesado
 - **HTMX**: Interactividad sin escribir mucho JavaScript
+- **Tailwind CSS**: Utilidades CSS
 
 ### Ejemplo de componente Ionic:
 
@@ -194,46 +211,47 @@ python manage.py migrate example
 
 ---
 
-## 🔌 Dependencias
-
-Los plugins pueden usar **25 librerías pre-empaquetadas** sin necesidad de pip.
-
-### Librerías disponibles:
-
-**Críticas:**
-- `Pillow` - Imágenes
-- `qrcode` - Códigos QR
-- `python-barcode` - Códigos de barras
-- `openpyxl` - Excel
-- `reportlab` - PDFs
-- `python-escpos` - Impresoras térmicas
-- `lxml`, `xmltodict`, `signxml` - XML/Facturación
-- `cryptography`, `zeep` - Seguridad y SOAP
-- `requests`, `websockets` - HTTP/WebSocket
-
-**Importantes:**
-- `python-dateutil`, `pytz` - Fechas
-- `phonenumbers` - Teléfonos
-- `stripe` - Pagos
-- `pandas`, `numpy` - Análisis
-- `pyserial` - Hardware
-- `email-validator`, `python-slugify`, `pydantic` - Utils
-
-**Útiles:**
-- `beautifulsoup4` - HTML parsing
-- `PyPDF2` - PDF manipulación
-
-### Declarar dependencias en plugin.json:
+## 🔌 module.json
 
 ```json
 {
+  "module_id": "example",
+  "name": "Example Module",
+  "name_es": "Módulo de Ejemplo",
+  "version": "0.1.0",
+  "description": "Example module for ERPlora Hub",
+  "description_es": "Módulo de ejemplo para ERPlora Hub",
+  "author": "Your Name",
+  "author_email": "your@email.com",
+  "license": "MIT",
+  "category": "general",
+  "tags": ["example", "demo", "template"],
+  "icon": "cube-outline",
+
   "dependencies": {
-    "python": [
-      "Pillow>=10.0.0",
-      "qrcode>=7.4.0"
-    ],
-    "plugins": []
-  }
+    "python": [],
+    "modules": []
+  },
+
+  "compatibility": {
+    "min_erplora_version": "1.0.0",
+    "max_erplora_version": "2.0.0"
+  },
+
+  "menu": {
+    "label": "Example",
+    "label_es": "Ejemplo",
+    "icon": "cube-outline",
+    "order": 100,
+    "url": "/modules/example/"
+  },
+
+  "permissions": [
+    "example.view_exampleitem",
+    "example.add_exampleitem",
+    "example.change_exampleitem",
+    "example.delete_exampleitem"
+  ]
 }
 ```
 
@@ -258,51 +276,40 @@ def test_example_view(client):
 Ejecutar tests:
 
 ```bash
-# Todos los tests del plugin
-pytest plugins/example/tests/
+# Todos los tests del módulo
+pytest modules/example/tests/
 
 # Test específico
-pytest plugins/example/tests/test_example.py::test_example_view
+pytest modules/example/tests/test_example.py::test_example_view
 
 # Con coverage
-pytest plugins/example/tests/ --cov=example
+pytest modules/example/tests/ --cov=example
 ```
 
 ---
 
 ## 📚 Recursos
 
-- [Documentación CPOS Plugins](../../docs/PLUGIN_ARCHITECTURE.md)
+- [Documentación ERPlora Modules](../../docs/MODULE_ICONS.md)
 - [Ionic Components](https://ionicframework.com/docs/components)
 - [Alpine.js Docs](https://alpinejs.dev)
 - [HTMX Docs](https://htmx.org/docs/)
-
----
-
-## 🤝 Contribuir
-
-Si mejoras este plugin de ejemplo:
-
-1. Fork el repositorio
-2. Crea feature branch: `git checkout -b feature/mejora-example`
-3. Commit cambios: `git commit -m "feat: añadir ejemplo de X"`
-4. Push: `git push origin feature/mejora-example`
-5. Crear Pull Request
+- [Lucide Icons](https://lucide.dev)
 
 ---
 
 ## 📄 Licencia
 
-Ver [LICENSE](LICENSE)
+MIT License
 
 ---
 
 ## ✍️ Autor
 
-**CPOS Team**
-Email: support@cpos.io
-Website: https://cpos.io
+**ERPlora Team**
+Email: support@erplora.com
+Website: https://erplora.com
 
 ---
 
-**Última actualización:** 2025-01-14
+**Última actualización:** 2025-12-26
